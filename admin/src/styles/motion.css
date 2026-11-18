@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Motion system — CSS only. Animates transform + opacity exclusively.
+   Durations/easings come from theme.css tokens. Kept identical in both apps.
+   ========================================================================== */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slide-left {
+  from { opacity: 0; transform: translate3d(28px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slide-right {
+  from { opacity: 0; transform: translate3d(-28px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+@keyframes typing-dot {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Utility classes ---------- */
+.anim-fade-up { animation: fade-up var(--dur-slow) var(--ease-out-soft) both; }
+.anim-fade-in { animation: fade-in var(--dur-base) var(--ease-out-soft) both; }
+.anim-scale-in { animation: scale-in var(--dur-base) var(--ease-out-soft) both; }
+.anim-slide-left { animation: slide-left var(--dur-slow) var(--ease-out-soft) both; }
+.anim-slide-right { animation: slide-right var(--dur-slow) var(--ease-out-soft) both; }
+.anim-float { animation: float 6s var(--ease-in-out-soft) infinite; }
+
+/* ---------- Scroll reveal (driven by <Reveal>) ---------- */
+.reveal:not(.is-visible),
+.reveal[data-stagger]:not(.is-visible) > * {
+  opacity: 0;
+}
+.reveal[data-stagger] { opacity: 1; }
+.reveal.is-visible:not([data-stagger]),
+.reveal.is-visible[data-stagger] > * {
+  animation-name: var(--reveal-anim, fade-up);
+  animation-duration: var(--dur-slow);
+  animation-timing-function: var(--ease-out-soft);
+  animation-fill-mode: both;
+  animation-delay: calc(var(--reveal-delay, 0ms) + var(--i, 0) * 70ms);
+}
+
+/* ---------- Page transitions (React Router view transitions) ---------- */
+::view-transition-old(root) {
+  animation: 160ms var(--ease-out-soft) both fade-out-soft;
+}
+::view-transition-new(root) {
+  animation: 280ms var(--ease-out-soft) both fade-up-soft;
+}
+@keyframes fade-out-soft { to { opacity: 0; } }
+@keyframes fade-up-soft {
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+}
+.vt-nav { view-transition-name: site-nav; }
+::view-transition-group(site-nav) { animation: none; }
+
+/* ---------- Accessibility: respect reduced motion everywhere ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal:not(.is-visible),
+  .reveal[data-stagger]:not(.is-visible) > * {
+    opacity: 1;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

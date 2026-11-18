@@ -1,0 +1,41 @@
+# ---------- Node ----------
+node_modules/
+npm-debug.log*
+
+# ---------- Python (MindAI service) ----------
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Secrets ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+serviceAccount*.json
+
+# ---------- Uploads / temp (multer) ----------
+uploads/
+tmp/
+
+# ---------- Logs ----------
+logs/
+*.log
+
+# ---------- Tests ----------
+tests/
+**/tests/
+**/*.test.*
+**/test_*.py
+coverage/
+results.json
+
+# ---------- Docs / AI tools ----------
+*.md
+.claude/

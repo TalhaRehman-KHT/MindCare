@@ -1,0 +1,161 @@
+/* ==========================================================================
+   MindCare design tokens — SINGLE SOURCE OF TRUTH.
+   This file is kept identical in frontend/ and admin/ (see README).
+   Change a value here and every page in the app follows.
+   Colors use light-dark(): first value = light theme, second = dark theme.
+   ========================================================================== */
+
+/* Self-hosted variable fonts (latin subset only, non-blocking). */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("../../node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  /* ---------- Typography ---------- */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans Variable", "Inter Variable", ui-sans-serif,
+    system-ui, sans-serif;
+
+  /* Fluid type: scales smoothly from 360px to 1440px, no breakpoint jumps */
+  --text-display: clamp(2rem, 1.25rem + 3.35vw, 3.75rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.025em;
+  --text-h1: clamp(1.75rem, 1.33rem + 1.85vw, 2.75rem);
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.375rem, 1.15rem + 1vw, 2rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.0625rem, 0.98rem + 0.37vw, 1.3125rem);
+  --text-h3--line-height: 1.35;
+  --text-body: clamp(0.9375rem, 0.9rem + 0.17vw, 1.0625rem);
+  --text-body--line-height: 1.65;
+  --text-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --text-small--line-height: 1.5;
+
+  /* ---------- Brand palette (calm teal) ---------- */
+  --color-primary-50: #effaf9;
+  --color-primary-100: #d5f1ee;
+  --color-primary-200: #ace2dd;
+  --color-primary-300: #79cbc5;
+  --color-primary-400: #47aca7;
+  --color-primary-500: #2b8f8c;
+  --color-primary-600: #1f7372;
+  --color-primary-700: #1c5c5d;
+  --color-primary-800: #1a4a4c;
+  --color-primary-900: #173e40;
+  --color-primary-950: #0a2527;
+
+  /* Secondary (soft indigo) — used for the AI assistant */
+  --color-accent-50: #eef1ff;
+  --color-accent-100: #e0e6ff;
+  --color-accent-300: #a5b2fc;
+  --color-accent-500: #6670f1;
+  --color-accent-600: #4f52e5;
+  --color-accent-700: #4240ca;
+
+  /* Warm highlight (from the clinic illustration) */
+  --color-warm-100: #fdeee6;
+  --color-warm-400: #ef9a73;
+  --color-warm-500: #e07a4f;
+
+  /* ---------- Semantic colors (these flip in dark mode) ---------- */
+  --color-bg: light-dark(#f6faf9, #0b1416);
+  --color-surface: light-dark(#ffffff, #111e21);
+  --color-surface-2: light-dark(#eef5f4, #172a2d);
+  --color-ink: light-dark(#13292b, #e6f0ef);
+  --color-ink-muted: light-dark(#4b6265, #a3b8b8);
+  --color-ink-subtle: light-dark(#6f8587, #7f9696);
+  --color-line: light-dark(#dde8e7, #24393c);
+  --color-line-strong: light-dark(#c3d4d3, #34504f);
+
+  --color-brand: light-dark(#1f7372, #47aca7);
+  --color-brand-hover: light-dark(#1c5c5d, #79cbc5);
+  --color-brand-ink: light-dark(#ffffff, #0a2527);
+  --color-brand-soft: light-dark(#e3f4f2, #133234);
+  --color-brand-strong: light-dark(#1c5c5d, #79cbc5);
+  --color-hero: light-dark(#173e40, #0f2a2c);
+  --color-hero-ink: #f1faf9;
+
+  --color-success: light-dark(#15803d, #4ade80);
+  --color-success-soft: light-dark(#e8f7ee, #12301f);
+  --color-warn: light-dark(#b45309, #fbbf24);
+  --color-warn-soft: light-dark(#fdf4e3, #33270f);
+  --color-danger: light-dark(#c2410c, #fb923c);
+  --color-danger-strong: light-dark(#b91c1c, #f87171);
+  --color-danger-soft: light-dark(#fdecea, #3a1717);
+
+  /* ---------- Radius ---------- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+  --radius-pill: 999px;
+
+  /* ---------- Shadows (soft, low contrast) ---------- */
+  --shadow-xs: 0 1px 2px rgb(15 50 52 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(15 50 52 / 0.07), 0 1px 2px rgb(15 50 52 / 0.04);
+  --shadow-md: 0 6px 18px -4px rgb(15 50 52 / 0.12),
+    0 2px 6px -2px rgb(15 50 52 / 0.06);
+  --shadow-lg: 0 18px 40px -12px rgb(15 50 52 / 0.2),
+    0 4px 12px -4px rgb(15 50 52 / 0.08);
+  --shadow-ring: 0 0 0 3px color-mix(in oklab, var(--color-brand) 30%, transparent);
+
+  /* ---------- Easing ---------- */
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+:root {
+  color-scheme: light dark;
+
+  /* Motion durations */
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 450ms;
+
+  /* Spacing rhythm */
+  --gutter: clamp(1rem, 0.6rem + 1.8vw, 2rem);
+  --section-y: clamp(3rem, 2rem + 4vw, 6rem);
+  --stack: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+  --content-max: 76rem;
+  --nav-h: 4.25rem;
+  --tap: 44px;
+
+  /* Z-index layers */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 40;
+  --z-drawer: 60;
+  --z-modal: 80;
+  --z-toast: 100;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

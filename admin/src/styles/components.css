@@ -1,0 +1,311 @@
+/* ==========================================================================
+   Shared component classes + micro-interactions (buttons, cards, inputs,
+   nav underline, chips, badges, skeletons). Used by src/components/ui/*.
+   Kept identical in both apps.
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  img, svg, video { max-width: 100%; }
+  img { height: auto; }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-brand) 25%, transparent);
+  }
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* ---------- Layout ---------- */
+  .container-page {
+    width: 100%;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: max(var(--gutter), env(safe-area-inset-left))
+      max(var(--gutter), env(safe-area-inset-right));
+  }
+  .section { padding-block: var(--section-y); }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .thin-scrollbar { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    --btn-bg: var(--color-surface);
+    --btn-fg: var(--color-ink);
+    --btn-border: var(--color-line-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: var(--tap);
+    padding: 0.625rem 1.25rem;
+    border: 1px solid var(--btn-border);
+    border-radius: var(--radius-pill);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform var(--dur-fast) var(--ease-out-soft),
+      box-shadow var(--dur-base) var(--ease-out-soft),
+      background-color var(--dur-fast) var(--ease-out-soft),
+      color var(--dur-fast) var(--ease-out-soft),
+      border-color var(--dur-fast) var(--ease-out-soft),
+      opacity var(--dur-fast);
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+    box-shadow: var(--shadow-xs);
+  }
+  .btn:focus-visible { outline: none; box-shadow: var(--shadow-ring); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn[aria-busy="true"] { cursor: progress; }
+
+  .btn-primary {
+    --btn-bg: var(--color-brand);
+    --btn-fg: var(--color-brand-ink);
+    --btn-border: transparent;
+  }
+  .btn-primary:hover:not(:disabled) { --btn-bg: var(--color-brand-hover); }
+  .btn-secondary {
+    --btn-bg: var(--color-brand-soft);
+    --btn-fg: var(--color-brand-strong);
+    --btn-border: transparent;
+  }
+  .btn-ghost {
+    --btn-bg: transparent;
+    --btn-border: transparent;
+    --btn-fg: var(--color-ink-muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    --btn-bg: var(--color-surface-2);
+    --btn-fg: var(--color-ink);
+    box-shadow: none;
+  }
+  .btn-outline { --btn-bg: transparent; }
+  .btn-danger {
+    --btn-bg: var(--color-danger-soft);
+    --btn-fg: var(--color-danger-strong);
+    --btn-border: transparent;
+  }
+  .btn-danger:hover:not(:disabled) {
+    --btn-bg: var(--color-danger-strong);
+    --btn-fg: #fff;
+  }
+  .btn-light {
+    --btn-bg: #ffffff;
+    --btn-fg: #173e40;
+    --btn-border: transparent;
+  }
+  .btn-sm { min-height: 2.25rem; padding: 0.375rem 0.875rem; font-size: 0.8125rem; }
+  .btn-lg { min-height: 3.25rem; padding: 0.875rem 1.75rem; font-size: 1rem; }
+  .btn-block { width: 100%; }
+  .btn-icon { padding: 0; width: var(--tap); min-width: var(--tap); }
+  .btn-icon.btn-sm { width: 2.25rem; min-width: 2.25rem; }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xs);
+  }
+  .card-hover {
+    transition: transform var(--dur-base) var(--ease-out-soft),
+      box-shadow var(--dur-base) var(--ease-out-soft),
+      border-color var(--dur-base) var(--ease-out-soft);
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: color-mix(in oklab, var(--color-brand) 35%, var(--color-line));
+  }
+  .card-hover:active { transform: translateY(-1px); }
+
+  /* ---------- Form fields ---------- */
+  .field-label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--color-ink-muted);
+  }
+  .field-input {
+    display: block;
+    width: 100%;
+    min-height: var(--tap);
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-size: 1rem; /* 16px prevents iOS zoom */
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .field-input::placeholder { color: var(--color-ink-subtle); }
+  .field-input:hover:not(:disabled) { border-color: var(--color-ink-subtle); }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: var(--shadow-ring);
+  }
+  .field-input[aria-invalid="true"] { border-color: var(--color-danger-strong); }
+  .field-input:disabled { opacity: 0.65; background: var(--color-surface-2); }
+  textarea.field-input { min-height: 7rem; resize: vertical; }
+  .field-error { margin-top: 0.375rem; font-size: var(--text-small); color: var(--color-danger-strong); }
+  .field-hint { margin-top: 0.375rem; font-size: var(--text-small); color: var(--color-ink-subtle); }
+
+  /* ---------- Nav link underline ---------- */
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding-inline: 0.25rem;
+    font-weight: 500;
+    color: var(--color-ink-muted);
+    transition: color var(--dur-fast);
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    right: 0.25rem;
+    bottom: 0.55rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-brand);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-out-soft);
+  }
+  .nav-link:hover, .nav-link.active { color: var(--color-ink); }
+  .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+
+  /* ---------- Chips (filters) ---------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 2.5rem;
+    padding: 0.375rem 1rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    color: var(--color-ink-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color var(--dur-fast), color var(--dur-fast),
+      border-color var(--dur-fast), transform var(--dur-fast) var(--ease-out-soft);
+  }
+  .chip:hover { border-color: var(--color-brand); color: var(--color-ink); }
+  .chip:active { transform: scale(0.97); }
+  .chip[aria-pressed="true"], .chip[aria-current="page"], .chip.active {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: var(--color-brand-ink);
+  }
+
+  /* ---------- Badges ---------- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.2rem 0.625rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    background: var(--color-surface-2);
+    color: var(--color-ink-muted);
+  }
+  .badge-brand { background: var(--color-brand-soft); color: var(--color-brand-strong); }
+  .badge-success { background: var(--color-success-soft); color: var(--color-success); }
+  .badge-warn { background: var(--color-warn-soft); color: var(--color-warn); }
+  .badge-danger { background: var(--color-danger-soft); color: var(--color-danger-strong); }
+  .badge-dot::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* ---------- Skeleton ---------- */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-surface-2);
+    border-radius: var(--radius-lg);
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent,
+      color-mix(in oklab, var(--color-surface) 70%, transparent), transparent);
+    animation: shimmer 1.4s var(--ease-in-out-soft) infinite;
+  }
+
+  /* ---------- Misc ---------- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-brand-strong);
+  }
+  .surface-glass {
+    background: color-mix(in oklab, var(--color-surface) 78%, transparent);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+  }
+  .link {
+    color: var(--color-brand-strong);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .link:hover { text-decoration-thickness: 2px; }
+}
+
+/* Toast container sits above everything */
+.Toastify__toast-container { z-index: var(--z-toast) !important; }

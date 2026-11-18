@@ -1,0 +1,91 @@
+# =============================================================
+# MindCare — root .gitignore (safety net for every subfolder)
+# =============================================================
+
+# ---------- Secrets ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+*.keystore
+credentials*.json
+serviceAccount*.json
+secrets/
+*.secret
+
+# ---------- Dependencies ----------
+node_modules/
+.pnpm-store/
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ---------- Markdown (only the root README is published) ----------
+*.md
+!/README.md
+
+# ---------- AI tools ----------
+CLAUDE.md
+.claude/
+.cursor/
+.aider*
+*REPORT*
+HANDOFF*
+
+# ---------- Tests ----------
+**/tests/
+**/__tests__/
+**/*.test.*
+**/*.spec.*
+**/test_*.py
+coverage/
+.nyc_output/
+.pytest_cache/
+results.json
+
+# ---------- Build output ----------
+dist/
+dist-ssr/
+build/
+*.tsbuildinfo
+.vite/
+
+# ---------- Logs / temp ----------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+tmp/
+temp/
+uploads/
+
+# ---------- Database dumps / backups ----------
+*.sqlite
+*.db
+dump/
+*.bak
+*.archive
+*.bson
+
+# ---------- Old git copies ----------
+.git-old/
+old-mindcare-git/
+
+# ---------- OS / editor ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
