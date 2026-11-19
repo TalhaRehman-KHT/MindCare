@@ -9,6 +9,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main, dev]
+  # Lets deploy.yml run these same tests before asking for approval
+  workflow_call: {}
 
 permissions:
   contents: read
