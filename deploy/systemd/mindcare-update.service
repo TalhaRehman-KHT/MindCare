@@ -1,0 +1,11 @@
+[Unit]
+Description=MindCare: pull approved images and restart changed containers
+Wants=network-online.target
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+# __APP_DIR__ and __USER__ are replaced at install time (see install command in deploy docs)
+User=__USER__
+ExecStart=__APP_DIR__/update.sh
