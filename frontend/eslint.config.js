@@ -23,6 +23,9 @@ export default defineConfig([
       },
     },
     rules: {
+      // Context/provider files export both a component and a hook/context; that only
+      // affects dev hot-reload, so report it as a warning instead of failing CI.
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]', ignoreRestSiblings: true }],
     },
   },
