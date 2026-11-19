@@ -1,0 +1,61 @@
+# ============================================================
+# MindCare — LOCAL run of all 4 services with Docker
+#   docker compose up --build        (first time / after code changes)
+#   docker compose down              (stop)
+#
+# Open:  Patient app  http://localhost:5173
+#        Admin panel  http://localhost:5174
+#        API          http://localhost:4000
+#
+# Secrets come from backend/.env (never committed).
+# Production uses a separate compose file on the server (pre-built images).
+# ============================================================
+name: mindcare
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_BACKEND_URL: http://localhost:4000
+        VITE_ADMIN_PANEL_URL: http://localhost:5174
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: ./admin
+      args:
+        VITE_BACKEND_URL: http://localhost:4000
+        VITE_PATIENT_APP_URL: http://localhost:5173
+    ports:
+      - "5174:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      # Inside Docker the chatbot is reached by its service name, not 127.0.0.1
+      CHATBOT_URL: http://ai:5000
+      PORT: "4000"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - ai
+    restart: unless-stopped
+
+  ai:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.ai
+    env_file: ./backend/.env
+    # No "ports": the chatbot is reachable only inside the Docker network
+    expose:
+      - "5000"
+    restart: unless-stopped
