@@ -1,5 +1,5 @@
 # ============================================================
-# MindCare — PRODUCTION compose for the home server (/opt/mindcare)
+# MindCare — PRODUCTION compose for the home server (run from this deploy/ folder)
 #
 # Uses the approved images that deploy.yml uploads to GHCR (tag :stable).
 # Nothing here is built on the server, and no ports are opened on the machine:

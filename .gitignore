@@ -6,6 +6,8 @@
 .env
 .env.*
 !.env.example
+tunnel.env
+.update.lock
 *.pem
 *.key
 *.crt
