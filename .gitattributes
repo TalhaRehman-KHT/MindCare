@@ -1,0 +1,20 @@
+# Keep LF line endings in the repo and on checkout (Linux servers and Docker need LF;
+# a shell script with Windows CRLF endings fails with "bad interpreter").
+* text=auto eol=lf
+
+# Windows-only scripts keep CRLF
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# Binary files: never touch
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.pdf  binary
+*.woff binary
+*.woff2 binary
+*.zip  binary
