@@ -1,0 +1,61 @@
+# ============================================================
+# MindCare — PRODUCTION compose for the home server (/opt/mindcare)
+#
+# Uses the approved images that deploy.yml uploads to GHCR (tag :stable).
+# Nothing here is built on the server, and no ports are opened on the machine:
+# the Cloudflare tunnel container reaches the apps over the internal Docker network.
+#
+#   mindcare.us.ci        → frontend:80
+#   admin.mindcare.us.ci  → admin:80
+#   api.mindcare.us.ci    → backend:4000
+#   (ai:5000 is internal only)
+# ============================================================
+name: mindcare
+
+x-defaults: &defaults
+  restart: unless-stopped
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+services:
+  frontend:
+    <<: *defaults
+    image: ghcr.io/talharehman-kht/mindcare-frontend:stable
+    depends_on:
+      - backend
+
+  admin:
+    <<: *defaults
+    image: ghcr.io/talharehman-kht/mindcare-admin:stable
+    depends_on:
+      - backend
+
+  backend:
+    <<: *defaults
+    image: ghcr.io/talharehman-kht/mindcare-backend:stable
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      CHATBOT_URL: http://ai:5000
+    depends_on:
+      - ai
+
+  ai:
+    <<: *defaults
+    image: ghcr.io/talharehman-kht/mindcare-ai:stable
+    env_file: .env
+
+  tunnel:
+    <<: *defaults
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run
+    # Only this container gets the tunnel token
+    env_file: tunnel.env
+    depends_on:
+      - frontend
+      - admin
+      - backend

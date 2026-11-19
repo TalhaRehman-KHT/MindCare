@@ -1,0 +1,10 @@
+[Unit]
+Description=Check for a new approved MindCare release every 2 minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=2min
+Unit=mindcare-update.service
+
+[Install]
+WantedBy=timers.target
