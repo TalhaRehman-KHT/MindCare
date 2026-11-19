@@ -1,0 +1,9 @@
+[Unit]
+Description=MindCare: pull approved images and restart changed containers
+Wants=network-online.target
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/mindcare/update.sh
