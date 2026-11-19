@@ -542,6 +542,10 @@ MindAI service (internal, called by Node only): `GET /health`, `POST /chat {mess
 
 ---
 
+## Branches
+- `main`: integration & testing. Open all pull requests here.
+- `dev`: **production / live deployment**. Updated only by the maintainer via a PR from `main`; every deploy needs manual approval.
+
 ## Build and deployment
 
 ```bash
