@@ -6,4 +6,6 @@ Requires=docker.service
 
 [Service]
 Type=oneshot
-ExecStart=/opt/mindcare/update.sh
+# __APP_DIR__ and __USER__ are replaced at install time (see install command in deploy docs)
+User=__USER__
+ExecStart=__APP_DIR__/update.sh

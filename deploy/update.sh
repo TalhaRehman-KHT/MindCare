@@ -2,11 +2,12 @@
 # ============================================================
 # MindCare — pull approved images and restart only what changed.
 # Run by the systemd timer (mindcare-update.timer) every 2 minutes and at boot.
-# Manual run:  sudo /opt/mindcare/update.sh
+# Manual run (from the deploy/ folder):  ./update.sh
 # ============================================================
 set -euo pipefail
 
-APP_DIR="/opt/mindcare"
+# Folder this script lives in (the repo's deploy/ folder), wherever the repo is cloned
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$APP_DIR"
 
 # Never run two updates at the same time
