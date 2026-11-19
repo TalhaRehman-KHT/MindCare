@@ -1,0 +1,20 @@
+# Shared by both images built from backend/ (Dockerfile = API, Dockerfile.ai = MindAI)
+node_modules
+venv
+.venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.env
+.env.*
+!.env.example
+uploads
+tmp
+logs
+*.log
+tests
+.vscode
+.idea
+Dockerfile
+Dockerfile.ai
+.dockerignore
